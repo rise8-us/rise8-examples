@@ -1,4 +1,4 @@
-# Advanced GitHub Actions - Tips and Tricks
+# Advanced GitHub Actions - Tips & Tricks
 
 GitHub Actions is a CI/CD tool that is in active development by GitHub.  Because of this, while it is very easy to get started, it can sometimes be challenging to sift through outdated StackOverflow articles to do a specific thing, if you even know it exists!  While the GitHub Actions documentation is fantastic, you have to know what's there and what's been added since you've looked last.
 
