@@ -14,5 +14,5 @@ jobs:
         run: echo ${{ github.event.client_payload.date }}
 
       - name: check sha from first trigger
-        if: github.event.event_type == "trigger-one"
+        if: github.event.action == "trigger-one"
         run: echo ${{ github.event.client_payload.commit-sha }}
