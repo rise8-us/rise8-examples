@@ -7,12 +7,12 @@ on:
       - trigger-two
 
 jobs:
-  build:
+  listen:
     runs-on: ubuntu-latest
     steps:
       - name: get date
         run: echo ${{ github.event.client_payload.date }}
 
       - name: check sha from first trigger
-        if: github.event.action == "trigger-one"
+        if: github.event.action == 'trigger-one'
         run: echo ${{ github.event.client_payload.commit-sha }}
