@@ -4,6 +4,14 @@ GitHub Actions is a CI/CD tool that is in active development by GitHub.  Because
 
 This post attempts to resolve the issue by existing as a living document that gathers advanced features and explanations all in one place.  Our team follows the GitHub Actions RSS feed to always be looped into the new features coming out.  By knowing what's possible and how to achieve it, your CI/CD workflows will reach their greatest potential :muscle:.
 
+# Table of Contents
+- [Workflow Dispatch - Manual Triggering of Workflows](#workflow-dispatch---manual-triggering-of-workflows)
+- [Repository Dispatch - Triggering Another Workflow](#repository-dispatch---triggering-another-workflow)
+- [Repository Dispatch - Polling for Run](#repository-dispatch---polling-for-run)
+- [Custom Actions vs Reusable Workflows](#custom-actions-vs-reusable-workflows)
+- [Pausing a Pipeline - Manual Approval](#pausing-a-pipeline---manual-approval)
+- [Matrix](#matrix)
+
 ## Workflow Dispatch - Manual Triggering of Workflows
 
 This is the simplest example here, and is really only included because the naming is a bit weird.  A `workflow_dispatch` trigger is a manual trigger--the easiest way to manually kick off a workflow from the GitHub interface.
