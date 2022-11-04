@@ -6,7 +6,9 @@ This post attempts to resolve the issue by existing as a living document that ga
 
 # Table of Contents
 - [Workflow Dispatch - Manual Triggering of Workflows](#workflow-dispatch---manual-triggering-of-workflows)
+    - [Example](#example)
 - [Repository Dispatch - Triggering Another Workflow](#repository-dispatch---triggering-another-workflow)
+    - [Example](#example-1)
 - [Repository Dispatch - Polling for Run](#repository-dispatch---polling-for-run)
 - [Custom Actions vs Reusable Workflows](#custom-actions-vs-reusable-workflows)
 - [Pausing a Pipeline - Manual Approval](#pausing-a-pipeline---manual-approval)
