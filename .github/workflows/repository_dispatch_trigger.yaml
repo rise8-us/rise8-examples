@@ -1,0 +1,28 @@
+name: Repository Dispatch - Trigger
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger One workflow
+        run: |
+          curl -H "Authorization: token ${{ secrets.REPO_DISPATCH_PAT  }}" \
+            -H 'Accept: application/vnd.github.everest-preview+json' \
+            --request POST \
+            "https://api.github.com/repos/${{ github.repository}}/dispatches" \
+            -d '{"event_type": "trigger-one", "client_payload": {"commit-sha": "${{ github.SHA }}", "date": "$(date)"}}'
+
+      - name: Wait
+        run: sleep 10s
+
+      - name: Trigger Two workflow
+        run: |
+          curl -H "Authorization: token ${{ secrets.REPO_DISPATCH_PAT  }}" \
+            -H 'Accept: application/vnd.github.everest-preview+json' \
+            --request POST \
+            "https://api.github.com/repos/${{ github.repository}}/dispatches" \
+            -d '{"event_type": "trigger-two", "client_payload": {"date": "$(date)"}}'
