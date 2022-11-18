@@ -107,7 +107,7 @@ Working code for this section:
 - [Polling script](./.github/scripts/workflow-status.sh)
 
 In the case of the example above, you can see a workflow get generated with a random ID:
-![example](poll_example.png)
+![example](./images/poll_example.png)
 
 ## Custom Actions vs Reusable Workflows
 
@@ -126,6 +126,16 @@ The fact that reusable workflows bring no state can be challenging.  For example
 
 #### Example
 
+- [Reusable Flow](./.github/workflows/reusable_flow_called.yaml)
+- [Workflow that calls Reusable Flow](./.github/workflows/reusable_flow_caller.yaml)
+
+In the case of the example above, you can see the caller workflow calling the reusable flow below.  Take note how you can see the reusable workflow steps and output just as if it were the workflow you triggered yourself:
+![example](./images/reusable.png)
+
+
+### Custom Actions
+# TODO
+
 ## Pausing a Pipeline - Manual Approval
 
 One of the features a lot of CI tools have is the ability to wait for manual approval to move to the next step in a workflow.  This section will go over the functionality that GitHub _does_ have to meet this need, and some of the downsides of it.
@@ -137,3 +147,4 @@ Put as simply as possible, instead of setting up a manual approval `step` in you
 This is especially messy because at the time of this writing, GitHub does not provide Environments to non-public repositories in the free plan.
 
 ## Matrix
+# TODD
