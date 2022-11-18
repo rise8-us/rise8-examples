@@ -1,0 +1,19 @@
+name: Repository Dispatch - Poll Called
+
+on:
+  repository_dispatch:
+    types:
+    - trigger-poll
+
+# The magic that uses the input from the caller to have a unique name
+run-name: ${{ github.event.client_payload.id }}
+
+jobs:
+  sign-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Demo
+        run: echo "I have been triggered with ID ${{ github.event.client_payload.id }}"

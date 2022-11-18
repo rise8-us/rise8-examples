@@ -1,0 +1,29 @@
+name: Repository Dispatch - Poll Caller
+
+on:
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Trigger workflow
+      env:
+        REPO_DISPATCH_PAT: ${{ secrets.REPO_DISPATCH_PAT  }}
+      run: |
+        # Generate a Unique ID, which becomes the name of the called workflow
+        UNIQUE_ID=$(openssl rand -hex 12)
+
+        # Trigger dispatch, passing in generated UNIQUE_ID as an input
+        curl -H "Authorization: token ${{ secrets.REPO_DISPATCH_PAT  }}" \
+          -H 'Accept: application/vnd.github.everest-preview+json' \
+          --request POST \
+          "https://api.github.com/repos/${{ github.repository}}/dispatches" \
+          -d '{"event_type": "trigger-poll", "client_payload": {"id":"'"$UNIQUE_ID"'"}}'
+
+        echo "Sleeping 10s to ensure repository_dispatch has been created in GitHub"
+        sleep 10s
+        echo "Waiting for repository_dispatch workflow $UNIQUE_ID..."
+        bash .github/scripts/workflow-status.sh $UNIQUE_ID
