@@ -1,0 +1,15 @@
+name: Reusable Workflow
+
+on:
+  workflow_call:
+    inputs:
+      variable:
+        required: false
+        type: string
+
+jobs:
+  run-reusable:
+    runs-on: ubuntu-latest
+    steps:
+      - name: example
+        run: echo "I am a reusable flow with input ${{ inputs.variable }}"

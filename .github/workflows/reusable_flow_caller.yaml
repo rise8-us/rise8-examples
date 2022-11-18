@@ -1,0 +1,13 @@
+name: Reusable Flow Caller
+
+on:
+  # Trigger manually
+  workflow_dispatch:
+
+jobs:
+  example:
+    name: Pipeline
+    uses: rise8-us/rise8-examples/.github/workflows/reusable_flow_called.yaml@main
+    with:
+      variable: test
+    secrets: inherit

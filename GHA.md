@@ -111,6 +111,21 @@ In the case of the example above, you can see a workflow get generated with a ra
 
 ## Custom Actions vs Reusable Workflows
 
+One of the things we see with people getting started off with GitHub Actions is confusion around creating an action vs creating a reusable workflow.  They have two distinct use-cases, but often they can be use together to make a powerful solution.
+
+### Reusable Workflows
+You can think of [reusable workflows](https://docs.github.com/en/actions/using-workflows/reusing-workflows) as templates of workflows.  A critical thing to know about them is that they are **not** triggered directly, but rather are referenced in another workflow.  When a workflow uses a reusable flow, GitHub behind-the-scenes actually downloads it and runs it.  This leads to the next most important thing to note--the reusable workflow actually executes in the _context of the caller_.  This has **very** important ramifications, as seen in the example below:
+
+- Repository `A` has reusable workflow `X`
+    - reusable workflow `X` references a GitHub Secret `${{ secrets.password }}`
+- Repository `B` has workflow `Y`
+
+When workflow `Y` is triggered, it calls the reusable flow `X`, which references `${{ secrets.password }}`.  And here we come to it--even though reusable flow `X` lives in repository `A`, because it's executing in the context of repository `B`, **repository `B` must have defined the secret `${{ secrets.password }}`**.  Put another way, the reusable workflow brings no state with it when called.
+
+The fact that reusable workflows bring no state can be challenging.  For example, you cannot directly include helper script files alongside your reusable workflow.  In addition, it means that the the caller of your reusable workflow must have all of the information necessary to execute it.  This can make some security practices challenging, such as if you'd like your reusable workflow to perform encryption or signing of data, those secret keys must be distributed, or accessible to, to all repositories that will use the flow.
+
+#### Example
+
 ## Pausing a Pipeline - Manual Approval
 
 One of the features a lot of CI tools have is the ability to wait for manual approval to move to the next step in a workflow.  This section will go over the functionality that GitHub _does_ have to meet this need, and some of the downsides of it.
