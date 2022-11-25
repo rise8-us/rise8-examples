@@ -12,4 +12,7 @@ runs:
       run: echo "The name you entered is ${{ inputs.name }}"
     - name: Print JSON Data
       shell: bash
-      run: cat data.json
+      run: |
+        ls
+        pwd
+        cat data.json
