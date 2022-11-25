@@ -35,9 +35,13 @@ jobs:
 
           # We got this data, but our team needs some post-processing done, in this example let's remove cyan
           OUTPUT=$(jq 'del(.[] | select(.color == "cyan"))' data.json)
+          echo $OUTPUT
 
           # Let's now add in the "include" piece of the JSON to define the matrix to fully construct our matrix
-          echo "matrix=$(echo "{\"include\":$OUTPUT}")" >> $GITHUB_OUTPUT
+          MATRIX_OUTPUT=$(echo "{\"include\":$OUTPUT}")
+          echo $MATRIX_OUTPUT
+
+          echo "matrix=$MATRIX_OUTPUT" >> $GITHUB_OUTPUT
 
   run-matrix:
     runs-on: ubuntu-latest
