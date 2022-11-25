@@ -16,19 +16,19 @@ jobs:
           [
             {
               "color": "red",
-              "value": "#f00"
+              "hex": "#f00"
             },
             {
               "color": "green",
-              "value": "#0f0"
+              "hex": "#0f0"
             },
             {
               "color": "blue",
-              "value": "#00f"
+              "hex": "#00f"
             },
             {
               "color": "cyan",
-              "value": "#0ff"
+              "hex": "#0ff"
             }
           ]
           EOF
@@ -51,4 +51,4 @@ jobs:
       matrix: ${{ fromJSON(needs.generate-matrix.outputs.matrix) }}
     steps:
       - name: Print
-        run: echo "The Color ${{ matrix.text_color }} is Hex ${{ matrix.hex_color }}.
+        run: echo "The Color ${{ matrix.color }} is Hex ${{ matrix.hex }}.
