@@ -257,5 +257,8 @@ Here is a working example of a fully dynamic matrix:
 
 - [Workflow](./.github/workflows/matrix.yaml)
 
-With the following results:
-![example](./images/matrix.png)
+With the following results, a pipeline that ran 3 times for each of the colors:
+![example](./images/matrix1.png)
+
+And outputs inside each matrix job as follows:
+![example](./images/matrix2.png)
