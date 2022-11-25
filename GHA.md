@@ -257,4 +257,5 @@ Here is a working example of a fully dynamic matrix:
 
 - [Workflow](./.github/workflows/matrix.yaml)
 
+With the following results:
 ![example](./images/matrix.png)

@@ -51,4 +51,4 @@ jobs:
       matrix: ${{ fromJSON(needs.generate-matrix.outputs.matrix) }}
     steps:
       - name: Print
-        run: echo "The Color ${{ matrix.color }} is Hex ${{ matrix.hex }}.
+        run: echo "The Color ${{ matrix.color }} is Hex ${{ matrix.hex }}."
