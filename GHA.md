@@ -10,9 +10,13 @@ This post attempts to resolve the issue by existing as a living document that ga
 - [Repository Dispatch - Triggering Another Workflow](#repository-dispatch---triggering-another-workflow)
     - [Example](#example-1)
 - [Repository Dispatch - Polling for Run](#repository-dispatch---polling-for-run)
+    - [Example](#example-2)
 - [Custom Actions vs Reusable Workflows](#custom-actions-vs-reusable-workflows)
+    - [Reusable Flow](#example-3)
+    - [Custom Action](#example-4)
 - [Pausing a Pipeline - Manual Approval](#pausing-a-pipeline---manual-approval)
 - [Matrix](#matrix)
+    - [Example](#example-5)
 
 ## Workflow Dispatch - Manual Triggering of Workflows
 
@@ -192,4 +196,61 @@ Put as simply as possible, instead of setting up a manual approval `step` in you
 This is especially messy because at the time of this writing, GitHub does not provide Environments to non-public repositories in the free plan.
 
 ## Matrix
-# TODD
+GitHub Actions uses the concept of a matrix run multiple instances of a job with different parameters.  As with the rest of this article, you should already be familiar with the basics of a [matrix job](https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs).  This section will detail some advanced usages you may not have realized are possible!
+
+The documentation focuses heavily on static matrices, such as defining a list of hard-coded strings or integers in the pipeline and iterating the matrix over that.  However, the main power comes in the dynamic aspect of it.  They recently did add an example of using a `context` to define a matrix in [this example](https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#example-using-contexts-to-create-matrices), but we can take it a step further!
+
+What if we wanted a multi-dimensional matrix that was also dynamic?  Well, it's possible to define a job in the following manner:
+
+```yaml
+  run-matrix:
+    runs-on: ubuntu-latest
+    needs:
+      - generate-matrix
+    strategy:
+      matrix: ${{ fromJSON(needs.generate-matrix.outputs.matrix) }}
+```
+
+Notice above, how we only define `matrix.strategy`, but do not define any key/value pairs under it.  Now, let's explore further into the steps on how you could use this:
+
+```yaml
+  run-matrix:
+    runs-on: ubuntu-latest
+    needs:
+      - generate-matrix
+    strategy:
+      matrix: ${{ fromJSON(needs.generate-matrix.outputs.matrix) }}
+    steps:
+      - name: Print
+        run: echo "The Color ${{ matrix.text_color }} is Hex ${{ matrix.hex_color }}.
+```
+
+Now you can see the power of this, which is it's ability to take in a fully dynamic array of objects and run a matrix against them.  There is one catch though, you must make sure you format the dynamic syntax properly.  When doing a multi-dimensional matrix, here is the following format:
+
+```yaml
+jobs:
+  includes_only:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - site: "production"
+            datacenter: "site-a"
+          - site: "staging"
+            datacenter: "site-b"
+
+```
+
+So if we want to do this dynamically, need to generate JSON exactly like:
+
+```yaml
+include:
+  - site: "production"
+  datacenter: "site-a"
+  - site: "staging"
+  datacenter: "site-b"
+```
+
+### Example
+
+Here is a working example of a fully dynamic matrix:
