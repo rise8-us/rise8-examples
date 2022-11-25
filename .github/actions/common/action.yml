@@ -13,6 +13,4 @@ runs:
     - name: Print JSON Data
       shell: bash
       run: |
-        ls
-        pwd
-        cat data.json
+        .github/actions/common/data.json
