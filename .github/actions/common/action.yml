@@ -9,3 +9,4 @@ runs:
   steps:
     - name: Print Name
       run: Echo "The name you entered is ${{ inputs.name }}"
+      shell: bash
