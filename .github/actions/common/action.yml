@@ -10,3 +10,6 @@ runs:
     - name: Print Name
       shell: bash
       run: echo "The name you entered is ${{ inputs.name }}"
+    - name: Print JSON Data
+      shell: bash
+      run: cat data.json

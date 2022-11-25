@@ -177,6 +177,8 @@ Where `./.github/actions/custom-action` is a folder in the repository and is str
 
 - [Custom Action](./.github/actions/common/action.yml)
 - [Workflow that calls Custom Action](./.github/workflows/custom_action.yaml)
+In the case of the example above, you can see the output of the Custom Action, including some JSON Data, here:
+![example](./images/custom_action.png)
 
 ## Pausing a Pipeline - Manual Approval
 
