@@ -38,10 +38,10 @@ jobs:
           echo $OUTPUT
 
           # Let's now add in the "include" piece of the JSON to define the matrix to fully construct our matrix
-          MATRIX_OUTPUT=\'$(echo "{\"include\":$OUTPUT}")\'
+          MATRIX_OUTPUT=$(echo "{\"include\":$OUTPUT}")
           echo $MATRIX_OUTPUT
 
-          echo "matrix=$MATRIX_OUTPUT" >> $GITHUB_OUTPUT
+          echo matrix=$MATRIX_OUTPUT >> $GITHUB_OUTPUT
 
   run-matrix:
     runs-on: ubuntu-latest
