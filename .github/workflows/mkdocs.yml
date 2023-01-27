@@ -1,0 +1,19 @@
+name: Mkdocs Generation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  mkdocs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+      - name: Install Material, TechDocs and Monorepo plugin for Mkdocs
+        run: pip install mkdocs-material mkdocs-techdocs-core==1.1.2
+      - run: mkdocs gh-deploy --force
