@@ -11,3 +11,4 @@ This post attempts to resolve the issue by existing as a living document that ga
 - [Custom Actions vs Reusable Workflows](./topics/custom-actions.md)
 - [Pausing a Pipeline - Manual Approval](./topics/approval.md)
 - [Dynamic, Multi-Dimensional Matrix](./topics/matrix.md)
+- [Publishing Images to GitHub Package - Advanced Labels](./topics/package-labels.md)
