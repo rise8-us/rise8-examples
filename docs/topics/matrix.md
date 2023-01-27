@@ -58,7 +58,7 @@ include:
 
 Here is a working example of a fully dynamic matrix:
 
-- [Workflow](../.github/workflows/matrix.yaml)
+- [Workflow](https://github.com/rise8-us/rise8-examples/blob/main/.github/workflows/matrix.yaml)
 
 With the following results, a pipeline that ran 3 times for each of the colors:
 ![example](../images/matrix1.png)

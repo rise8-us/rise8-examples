@@ -6,7 +6,7 @@ theme:
   logo: images/logo.png
 nav:
   - 'GitHub Actions':
-    - 'Overview': 'GHA.md'
+    - 'Overview': 'README.md'
     - 'Workflow Dispatch: Manual Triggering of Workflows': 'topics/workflow-dispatch.md'
     - 'Repository Dispatch: Triggering Another Workflow': 'topics/repository-dispatch-1.md'
     - 'Repository Dispatch: Polling for Run': 'topics/repository-dispatch-2.md'

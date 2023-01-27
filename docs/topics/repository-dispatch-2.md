@@ -14,9 +14,9 @@ Thanks to a newer feature GitHub Actions recently released, there is a viable wo
 
 Working code for this section:
 
-- [Triggering a repository_dispatch and polling](../.github/workflows/repository_dispatch_caller.yaml)
-- [Listening for a repository_dispatch using a dynamic name](../.github/workflows/repository_dispatch_called.yaml)
-- [Polling script](../.github/scripts/workflow-status.sh)
+- [Triggering a repository_dispatch and polling](https://github.com/rise8-us/rise8-examples/blob/main/.github/workflows/repository_dispatch_caller.yaml)
+- [Listening for a repository_dispatch using a dynamic name](https://github.com/rise8-us/rise8-examples/blob/main/.github/workflows/repository_dispatch_called.yaml)
+- [Polling script](https://github.com/rise8-us/rise8-examples/blob/main/.github/scripts/workflow-status.sh)
 
 In the case of the example above, you can see a workflow get generated with a random ID:
 ![example](../images/poll_example.png)

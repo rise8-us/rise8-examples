@@ -23,4 +23,4 @@ We generally prefer the second option.  Once the simple "Hello World" workflow i
 
 ## Example
 
-Check [this](../.github/workflows/workflow_dispatch.yaml) workflow out for an example of creating a `workflow_dispatch`.
+Check [this](https://github.com/rise8-us/rise8-examples/blob/main/.github/workflows/workflow_dispatch.yaml) workflow out for an example of creating a `workflow_dispatch`.

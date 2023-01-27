@@ -40,5 +40,5 @@ Listening for a `repository_dispatch` event is as simple as adding it to the `on
 
 Working code for this section:
 
-- [Triggering a repository_dispatch](../.github/workflows/repository_dispatch_trigger.yaml)
-- [Listening for a repository_dispatch](../.github/workflows/repository_dispatch_listener.yaml)
+- [Triggering a repository_dispatch](https://github.com/rise8-us/rise8-examples/blob/main/.github/workflows/repository_dispatch_trigger.yaml)
+- [Listening for a repository_dispatch](https://github.com/rise8-us/rise8-examples/blob/main/.github/workflows/repository_dispatch_listener.yaml)

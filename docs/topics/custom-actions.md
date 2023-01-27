@@ -15,8 +15,8 @@ The fact that reusable workflows bring no state can be challenging.  For example
 
 ### Example
 
-- [Reusable Flow](../.github/workflows/reusable_flow_called.yaml)
-- [Workflow that calls Reusable Flow](../.github/workflows/reusable_flow_caller.yaml)
+- [Reusable Flow](https://github.com/rise8-us/rise8-examples/blob/main/.github/workflows/reusable_flow_called.yaml)
+- [Workflow that calls Reusable Flow](https://github.com/rise8-us/rise8-examples/blob/main/.github/workflows/reusable_flow_caller.yaml)
 
 In the case of the example above, you can see the caller workflow calling the reusable flow below.  Take note how you can see the reusable workflow steps and output just as if it were the workflow you triggered yourself:
 ![example](../images/reusable.png)
@@ -65,8 +65,8 @@ Where `./.github/actions/custom-action` is a folder in the repository and is str
 
 #### Example
 
-- [Custom Action](../.github/actions/common/action.yml)
-- [Workflow that calls Custom Action](../.github/workflows/custom_action.yaml)
+- [Custom Action](https://github.com/rise8-us/rise8-examples/blob/main/.github/actions/common/action.yml)
+- [Workflow that calls Custom Action](https://github.com/rise8-us/rise8-examples/blob/main/.github/workflows/custom_action.yaml)
 
 In the case of the example above, you can see the output of the Custom Action here:
 ![example](../images/custom_action.png)
