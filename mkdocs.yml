@@ -6,6 +6,13 @@ theme:
   logo: images/logo.png
 nav:
   - 'GitHub Actions': 'GHA.md'
+    - 'Workflow Dispatch - Manual Triggering of Workflows': './topics/workflow-dispatch.md'
+    - 'Repository Dispatch - Triggering Another Workflow': './topics/repository-dispatch-1.md'
+    - 'Repository Dispatch - Polling for Run': './topics/repository-dispatch-2.md'
+    - 'Custom Actions vs Reusable Workflows': './topics/custom-actions.md'
+    - 'Pausing a Pipeline - Manual Approval': './topics/approval.md'
+    - 'Dynamic, Multi-Dimensional Matrix': './topics/matrix.md'
+    - 'Publishing Images to GitHub Package - Advanced Labels': './topics/package-labels.md'
 
 markdown_extensions:
   - attr_list
