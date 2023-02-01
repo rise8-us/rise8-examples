@@ -1,0 +1,674 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://rise8-us.github.io/rise8-examples/GHA/topics/custom-actions/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.1.11">
+    
+    
+      
+        <title>Custom Actions vs Reusable Workflows - Rise8 Examples</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.50e68009.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#custom-actions-vs-reusable-workflows" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Rise8 Examples" class="md-header__button md-logo" aria-label="Rise8 Examples" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Rise8 Examples
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Custom Actions vs Reusable Workflows
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/rise8-us/rise8-examples" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Rise8 Examples" class="md-nav__button md-logo" aria-label="Rise8 Examples" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    Rise8 Examples
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/rise8-us/rise8-examples" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          GitHub Actions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="GitHub Actions" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          GitHub Actions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflow-dispatch/" class="md-nav__link">
+        Workflow Dispatch: Manual Triggering of Workflows
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../repository-dispatch-1/" class="md-nav__link">
+        Repository Dispatch: Triggering Another Workflow
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../repository-dispatch-2/" class="md-nav__link">
+        Repository Dispatch: Polling for Run
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Custom Actions vs Reusable Workflows
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Custom Actions vs Reusable Workflows
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reusable-workflows" class="md-nav__link">
+    Reusable Workflows
+  </a>
+  
+    <nav class="md-nav" aria-label="Reusable Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-actions" class="md-nav__link">
+    Custom Actions
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Actions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dedicated-repository-action" class="md-nav__link">
+    Dedicated Repository Action
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directory-based-action" class="md-nav__link">
+    Directory-based Action
+  </a>
+  
+    <nav class="md-nav" aria-label="Directory-based Action">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../approval/" class="md-nav__link">
+        Pausing a Pipeline: Manual Approval
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../matrix/" class="md-nav__link">
+        Dynamic, Multi-Dimensional Matrix
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../package-labels/" class="md-nav__link">
+        Publishing Images to GitHub Package: Advanced Labels
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reusable-workflows" class="md-nav__link">
+    Reusable Workflows
+  </a>
+  
+    <nav class="md-nav" aria-label="Reusable Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-actions" class="md-nav__link">
+    Custom Actions
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Actions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dedicated-repository-action" class="md-nav__link">
+    Dedicated Repository Action
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directory-based-action" class="md-nav__link">
+    Directory-based Action
+  </a>
+  
+    <nav class="md-nav" aria-label="Directory-based Action">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/rise8-us/rise8-examples/edit/master/docs/GHA/topics/custom-actions.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+<h1 id="custom-actions-vs-reusable-workflows">Custom Actions vs Reusable Workflows</h1>
+<p>One of the things we see with people getting started with GitHub Actions is confusion around creating an action vs creating a reusable workflow.  They have two distinct use-cases, but often they can be use together to make a powerful solution.</p>
+<h2 id="reusable-workflows">Reusable Workflows</h2>
+<p>You can think of <a href="https://docs.github.com/en/actions/using-workflows/reusing-workflows">reusable workflows</a> as templates of workflows.  A critical thing to know about them is that they are <strong>not</strong> triggered directly, but rather are referenced in another workflow.  When a workflow uses a reusable flow, GitHub behind-the-scenes actually downloads it and runs it.  This leads to the next most important thing to note--the reusable workflow actually executes in the <em>context of the caller</em>.  This has <strong>very</strong> important ramifications, as seen in the example below:</p>
+<ul>
+<li>Repository <code>A</code> has reusable workflow <code>X</code><ul>
+<li>reusable workflow <code>X</code> references a GitHub Secret <code>${{ secrets.password }}</code></li>
+</ul>
+</li>
+<li>Repository <code>B</code> has workflow <code>Y</code></li>
+</ul>
+<p>When workflow <code>Y</code> is triggered, it calls the reusable flow <code>X</code>, which references <code>${{ secrets.password }}</code>.  And here we come to it--even though reusable flow <code>X</code> lives in repository <code>A</code>, because it's executing in the context of repository <code>B</code>, <strong>repository <code>B</code> must have defined the secret <code>${{ secrets.password }}</code></strong>.  Put another way, the reusable workflow brings no state with it when called.</p>
+<p>The fact that reusable workflows bring no state can be challenging.  For example, you cannot directly include helper script files alongside your reusable workflow.  In addition, it means that the the caller of your reusable workflow must have all of the information necessary to execute it.  This can make some security practices challenging, such as if you'd like your reusable workflow to perform encryption or signing of data, those secret keys must be distributed, or accessible to, to all repositories that will use the flow.</p>
+<h3 id="example">Example</h3>
+<ul>
+<li><a href="https://github.com/rise8-us/rise8-examples/blob/main/.github/workflows/reusable_flow_called.yaml">Reusable Flow</a></li>
+<li><a href="https://github.com/rise8-us/rise8-examples/blob/main/.github/workflows/reusable_flow_caller.yaml">Workflow that calls Reusable Flow</a></li>
+</ul>
+<p>In the case of the example above, you can see the caller workflow calling the reusable flow below.  Take note how you can see the reusable workflow steps and output just as if it were the workflow you triggered yourself:
+<img alt="example" src="../../images/reusable.png" /></p>
+<h2 id="custom-actions">Custom Actions</h2>
+<p>Custom Actions are probably more common than Reusable Flows, as GitHub Actions promotes them right when you get started using it.  Any of the actions created and available on the <a href="https://github.com/marketplace?type=actions">GitHub Marketplace</a> are all Custom Actions created by someone else.  At it's core, a Custom Action is just a wrapper around some code.</p>
+<p>Since you're reading this though, you're more likely interested in creating your own Custom Actions.  Beyond the basic documentation for <a href="https://docs.github.com/en/actions/creating-actions">creating a custom action</a>, a key difference between them and Reusable Workflows is that when using an action, you automatically have access to <em>all of the files in the custom action</em>.  This means that if you want the Custom Action to be comprised of multiple Javascript files, or even stateful JSON data, it will all available when called.</p>
+<p>Custom Actions currently can happen in two forms:</p>
+<ul>
+<li>A dedicated repository</li>
+<li>A folder in an existing repository</li>
+</ul>
+<h3 id="dedicated-repository-action">Dedicated Repository Action</h3>
+<p>These type of actions are what you see in the GitHub marketplace.  They will always have a top level <code>action.yml</code> file such as <a href="https://github.com/actions/stale">this one for stale issues</a>.  To use them, you can simply use the following syntax:</p>
+<pre><code class="bash">jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v6
+        with:
+          stale-issue-message: 'Stale issue message'
+          ...
+</code></pre>
+
+<p>Where <code>actions/stale@v6</code> references the action in the format <REPOSITORY>@<BRANCH/TAG>.  You can create your own custom action the same way, and you do not need to publish it to the marketplace to use it.  However, keep in mind the GitHub Custom Action repository must either be <code>public</code>, or the repository you are using it from must have proper access (i.e. it's <code>internal</code> and in the same organization).  We will omit an example from this section as it's basic functionality for GitHub Actions.</p>
+<h3 id="directory-based-action">Directory-based Action</h3>
+<p>If you run into a scenario where you'd prefer to house multiple Custom Actions in the same repository, or maybe modularize your code by having a Custom Action in the same repository as your workflow, you can also store the action anywhere in a repository.  The key here is that the repository that holds the Custom Action <strong>must be checked out prior to use</strong>.  To use a Custom Action in this manner, the syntax is as follows:</p>
+<pre><code class="bash">jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run Custom Action
+        uses: ./.github/actions/custom-action
+</code></pre>
+
+<p>Where <code>./.github/actions/custom-action</code> is a folder in the repository and is structured according to the documentation for <a href="https://docs.github.com/en/actions/creating-actions">creating a custom action</a>.</p>
+<h4 id="example_1">Example</h4>
+<ul>
+<li><a href="https://github.com/rise8-us/rise8-examples/blob/main/.github/actions/common/action.yml">Custom Action</a></li>
+<li><a href="https://github.com/rise8-us/rise8-examples/blob/main/.github/workflows/custom_action.yaml">Workflow that calls Custom Action</a></li>
+</ul>
+<p>In the case of the example above, you can see the output of the Custom Action here:
+<img alt="example" src="../../images/custom_action.png" /></p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../repository-dispatch-2/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Repository Dispatch: Polling for Run" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Repository Dispatch: Polling for Run
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../approval/" class="md-footer__link md-footer__link--next" aria-label="Next: Pausing a Pipeline: Manual Approval" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Pausing a Pipeline: Manual Approval
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.092fa1f6.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5a9542cf.min.js"></script>
+      
+    
+  </body>
+</html>
